@@ -6,7 +6,7 @@
 
 echo "Benvenuti nell'installazione di base di Arch Linux con Dual boot!"
 read -r -p "Vuoi continuare con l'installazione? [S/n] " response
-if [[ ($response) =~ ^([Ss])$ ]] || [ -z ($response) ]]
+if [[ "$response" =~ ^([Ss])$ ]] || [ -z $response ]]
 then
     echo "Sincronizzazione al tempo mondiale..."
     timedatectl -set-ntp true
