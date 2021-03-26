@@ -21,7 +21,7 @@ echo "Installando i pacchetti del sistema con pacman..."
 read -r -p "Impostare un browser di preferenza tra firefox e chromium: " browser
 pacman -S grub efibootmgr os-prober $browser bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth mtools dialog xdg-utils xdg-user-dirs networkmanager network-manager-applet cups git reflector gnome gnome-extra
 echo "Configurazione grub..."
-grub-install --target=xf86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 echo "Generazione file di configurazione grub..."
 grub-mkconfig -o /boot/grub/grub.cfg
 sleep 2

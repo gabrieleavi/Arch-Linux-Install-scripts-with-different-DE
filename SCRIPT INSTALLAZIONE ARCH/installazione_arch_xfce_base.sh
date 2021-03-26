@@ -21,11 +21,11 @@ echo "Installando i pacchetti del sistema con pacman..."
 read -r -p "Impostare un browser di preferenza tra firefox e chromium: " browser
 pacman -S grub efibootmgr os-prober $browser bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth mtools dialog xdg-utils xdg-user-dirs networkmanager network-manager-applet cups git reflector lighdm-gtk-greeter xfce-4
 echo "Configurazione grub..."
-grub-install --platorm=xf86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 echo "Generazione file di configurazione grub..."
 grub-mkconfig -o /boot/grub/grub.cfg
 echo "Attivando i servizi all'avvio..."
-systemctl enable NetworkManger
+systemctl enable NetworkManager
 systemctl enable cups
 systemctl enable bluetooth
 systemctl enable lightdm

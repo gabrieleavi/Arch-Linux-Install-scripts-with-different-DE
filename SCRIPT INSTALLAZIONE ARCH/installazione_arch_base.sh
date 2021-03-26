@@ -9,10 +9,10 @@ read -r -p "Vuoi continuare con l'installazione? [S/n] " response
 if [[ "$response" =~ ^([Ss])$ ]] || [ -z $response ]]
 then
     echo "Sincronizzazione al tempo mondiale..."
-    timedatectl -set-ntp true
+    timedatectl set-ntp true
     echo "Prendendo i mirror più vicini..."
     sleep 2
-    reflector --sort-rate -l 15 -p https --save /etc/pacman.d/mirrorlist
+    reflector --sort rate -l 15 -p https --save /etc/pacman.d/mirrorlist
     pacman -Syy
     clear
     echo "Visualizzazione partizioni disponibili..."
