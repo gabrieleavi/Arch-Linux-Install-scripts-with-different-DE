@@ -33,6 +33,7 @@ then
     echo "Creazione directory boot/efi..."
     mkdir -p /mnt/boot/efi
     read -r -p "Indica per favore la partizione boot/efi: " efi
+    mkfs.fat -F32 $efi
     mount $efi /mnt/boot/efi
     clear
     echo "installazione dei pacchetti di base con pacstrap!"
