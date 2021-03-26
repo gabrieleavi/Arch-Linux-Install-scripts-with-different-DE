@@ -13,6 +13,7 @@ then
     echo "Prendendo i mirror più vicini..."
     sleep 2
     reflector --sort-rate -l 15 -p https --save /etc/pacman.d/mirrorlist
+    pacman -Syy
     clear
     echo "Visualizzazione partizioni disponibili..."
     fdisk -l
@@ -31,7 +32,7 @@ then
     mount $filesystem /mnt
     echo "Creazione directory boot/efi..."
     mkdir -p /mnt/boot/efi
-    read -r -p "Indica per favore la partizione boot/efi: " $efi
+    read -r -p "Indica per favore la partizione boot/efi: " efi
     mount $efi /mnt/boot/efi
     clear
     echo "installazione dei pacchetti di base con pacstrap!"
