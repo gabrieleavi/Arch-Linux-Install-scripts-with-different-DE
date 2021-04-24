@@ -65,14 +65,12 @@ then
         sleep 8
         $editor /etc/locale.gen
         locale-gen
-        read -r -p "Please insert the chosen locale (e.g. LANG=it_IT.UTF-8) " locale
+        read -r -p "Please insert the chosen locale (e.g. it_IT.UTF-8) " locale
         sleep 3
         echo LANG=$locale >> /etc/locale.conf
-        if [[ "$keyboard" != en_us ]]; then
             echo "Adding the keyboard layout to /etc/vconsole.conf ..."
             sleep 3
             echo KEYMAP=$keyboard >> /etc/vconsole.conf
-        else
             read -r -p "Please enter the hostname: " hostname
             echo "Adding hostname to /etc/hostname..."
             sleep 3
@@ -111,7 +109,6 @@ then
                 sleep 10
                 EDITOR=$editor visudo
                 echo "You finished your Arch Linux Install! Now reboot your system!"
-                fi
-        else
+            else
             echo "Operazione annullata!"
-        fi
+                fi
