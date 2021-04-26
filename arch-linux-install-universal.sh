@@ -15,6 +15,8 @@ then
     -en_gb
     -other languages (Check the wiki!) " keyboard
     loadkeys $keyboard
+    read -r -p "In which path did you mount your EFI partiton? (e.g. /boot/efi/) " efi
+    read -r -p "Which name do you want to assing to your user? " user
     read -r -p "Which text editor did you install in the base install? " editor
     read -r -p "Which browser do you wish to install? The options are:
     - firefox
@@ -26,7 +28,7 @@ then
     read -r -p "Which desktop environment/window manager, do you wish to install? The choices are:
     - gnome
     - xfce
-    - kde
+    - plasma
     - mate
     - lxqt
     - enlightenment
@@ -47,6 +49,14 @@ then
     - pulseaudio
     - pipewire 
     (insert the name) " audio
+    read -r -p "Which terminal do you like to use?
+    - gnome-terminal
+    - konsole
+    - alacritty
+    - termite
+    - terminator
+    - xfce4-terminal
+    - mate-terminal (insert name)" terminal
     read -r -p "Which linux kernel did you choose?
     -linux
     -linux-lts
@@ -86,13 +96,26 @@ then
             echo "Installing the packages you chose before..."
             sleep 4
                 if [[ "$dm" = lightdm ]]; then
-                    pacman -S grub efibootmgr os-prober cups networkmanager network-manager-applet dialog mtools dosfstools ntfs-3g $kernel-headers base-devel xorg $de $browser $audio $dm lightdm-gtk-greeter git reflector bluez bluez-utils xdg-utils xdg-user-dirs
+                    pacman -S grub efibootmgr os-prober $terminal cups networkmanager network-manager-applet dialog mtools dosfstools ntfs-3g $kernel-headers base-devel xorg $de $browser $audio $dm lightdm-gtk-greeter git reflector bluez bluez-utils xdg-utils xdg-user-dirs
+                    grub-install --target=x86_64-efi --efi-directory=$efi --bootloader-id=GRUB
+                    grub-mkconfig -o /boot/grub/grub.cfg
+                    systemctl enable NetworkManager
+                    systemctl enable bluetooth
+                    systemctl enable cups
+                    systemctl enable $dm
+                    echo "Adding a system user..."
+                    sleep 2
+                    useradd -mG wheel $user
+                    passwd $user
+                    clear
+                    echo "Now you will be redirected in the visudo command, if you don't want to assign superuser privileges to your user, just exit! "
+                    EDITOR=$editor visudo
+                    clear
+                    echo "The script ended successfully! You may now exit the root, unmount all your partitions with umount -a and then reboot the computer!"
                 else
-                    pacman -S grub efibootmgr os-prober cups networkmanager network-manager-applet dialog mtools dosfstools ntfs-3g $kernel-headers base-devel xorg $de $browser $audio $dm git reflector bluez-utils bluez xdg-utils xdg-user-dirs
-                fi
+                    pacman -S grub efibootmgr os-prober $terminal cups networkmanager network-manager-applet dialog mtools dosfstools ntfs-3g $kernel-headers base-devel xorg $de $browser $audio $dm git reflector bluez-utils bluez xdg-utils xdg-user-dirs
                 echo "Installing grub bootloader..."
                 sleep 6
-                read -r -p "In which directory did you mount your EFI partition? " efi
                 grub-install --target=x86_64-efi --efi-directory=$efi --bootloader-id=GRUB
                 echo "Generating GRUB configuration file..."
                 sleep 5
@@ -103,8 +126,8 @@ then
                 systemctl enable $dm
                 echo "Adding a system user..."
                 sleep 5
-                read -r -p "Please give the username: " username
-                useradd -mG wheel $username
+                useradd -mG wheel $user
+                passwd $user
                 echo "Giving sudo privileges at your account (if you don't want to give root priviliges, exit the text editor..."
                 sleep 10
                 EDITOR=$editor visudo
