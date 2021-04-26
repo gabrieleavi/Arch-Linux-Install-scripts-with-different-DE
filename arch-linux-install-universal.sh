@@ -132,7 +132,7 @@ then
                 sleep 10
                 EDITOR=$editor visudo
                 echo "You finished your Arch Linux Install! Now reboot your system!"
+                fi
             else
             echo "Operazione annullata!"
                 fi
-                    fi
