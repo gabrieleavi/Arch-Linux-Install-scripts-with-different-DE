@@ -60,7 +60,7 @@ def arch_install_iso():
         print("Partitioning the drive...")
         print("Creating a EFI partition in the disk...")
         # Using parted to partition the drives
-        os.system("parted {} mklabel gpt")
+        os.system("parted {} mklabel gpt" .format(part))
         os.system("parted {} mkpart fat32 1MiB 200MiB" .format(part))
         os.system("parted {} mkpart linux-swap 200MiB 4GiB" .format(part))
         os.system("parted {} mkpart ext4 4GiB 100%" .format(part))
