@@ -127,4 +127,4 @@ def arch_install_iso():
         time.sleep(2)
     print("Thank you for using this script!")
 if __name__ == '__main__':
-    arch_install_iso
+    arch_install_iso()
