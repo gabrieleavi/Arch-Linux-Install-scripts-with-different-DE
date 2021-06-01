@@ -128,4 +128,4 @@ def arch_install_iso():
     print("Thank you for using this script!")
     
 if __name__ == '__main__':
-    arch_linux_install_iso()
+    arch_install_iso()
