@@ -64,7 +64,7 @@ def arch_install_iso():
         # Using parted to partition the drives
         os.system("parted {} mklabel gpt mkpart ""EFI"" fat32 1MiB 200MiB" .format(part))
         os.system("parted {} mkpart ""swap"" linux-swap 200MiB 4GiB" .format(part))
-        os.system("parted {} mkpart ""File system partition"" ext4 4GiB 90%" .format(part))
+        os.system("parted {} mkpart ""File system partition"" ext4 4GiB 100%" .format(part))
         print("Mounting the partitions...")
         # Formatting the file systems
         os.system("mkfs.fat -F32 {}1" .format(part))
