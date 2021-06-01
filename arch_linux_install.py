@@ -106,7 +106,7 @@ def arch_install_iso():
         # Installing the other part of the system
         print("Now the script will install the rest of the system, with the bootloader, etc...")
         time.sleep(2)
-        os.system("pacman --noconfirm -S grub efibootmgr os-prober networkmanager network-manager-applet dialog mtools dosfstools ntfs-3g base-devel {}-headers bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth cups git reflector xdg-utils xdg-user-dirs")
+        os.system("pacman --noconfirm -S grub efibootmgr os-prober networkmanager network-manager-applet dialog mtools dosfstools ntfs-3g base-devel {}-headers bluez bluez-utils alsa-utils pulseaudio pulseaudio-bluetooth cups git reflector xdg-utils xdg-user-dirs" .format(ker)
         # Installing the bootloader
         print("Now the script will install the GRUB bootloader...")
         time.sleep(3)
