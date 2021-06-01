@@ -126,3 +126,6 @@ def arch_install_iso():
         print("Now the installation is complete, you will need to reboot, after you exited the chroot and umounted all the partition with 'umount -a' ")
         time.sleep(2)
     print("Thank you for using this script!")
+    
+if __name__ == '__main__':
+    arch_linux_install_iso()
