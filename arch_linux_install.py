@@ -32,9 +32,7 @@ def arch_install_iso():
         (input the full name): """)
         name = input("Insert the username for your account: ")
         host = input("Please put your desired hostname: ")
-        hosts = """127.0.0.1    localhost
-        ::1     localhost
-        127.0.1.1   {}.localdomain  {}""".format(host, host)
+        network1, network2, network3 = "127.0.0.1   localhost", "::1    localhost", str("127.0.1.1  {}.localdomain  {}" .format(host, host))
         tz = input("Please insert your time zone from the Arch Wiki (e.g. Europe/Rome): ")
         loc = input("Please input your locale, checking in the Wiki if you don't know it (e.g. en_US.UTF-8): ")
         # Keyboard setup
@@ -62,9 +60,9 @@ def arch_install_iso():
         print("Partitioning the drive...")
         print("Creating a EFI partition in the disk...")
         # Using parted to partition the drives
-        os.system("parted {} mklabel gpt mkpart ""EFI"" fat32 1MiB 200MiB" .format(part))
-        os.system("parted {} mkpart ""swap"" linux-swap 200MiB 4GiB" .format(part))
-        os.system("parted {} mkpart ""File system partition"" ext4 4GiB 100%" .format(part))
+        os.system("parted {} mklabel gpt mkpart fat32 1MiB 200MiB" .format(part))
+        os.system("parted {} mkpart linux-swap 200MiB 4GiB" .format(part))
+        os.system("parted {} mkpart ext4 4GiB 100%" .format(part))
         print("Mounting the partitions...")
         # Formatting the file systems
         os.system("mkfs.fat -F32 {}1" .format(part))
@@ -98,7 +96,9 @@ def arch_install_iso():
         os.system("echo KEYMAP={} /etc/vconsole.conf" .format(kb))
         # Setting the hostname and the network file
         os.system("echo {} /etc/hostname" .format(host))
-        os.system("echo {} /etc/hosts" .format(hosts))
+        os.system("echo {} /etc/hosts" .format(network1))
+        os.system("echo {} /etc/hosts" .format(network2))
+        os.system("echo {} /etc/hosts" .format(network3))        
         # Setting the root password
         rootpsw = input("Now you can input the root password... do you want to do it? [y/n] ")
         if rootpsw == "y" or rootpsw == "Y":
@@ -126,6 +126,5 @@ def arch_install_iso():
         print("Now the installation is complete, you will need to reboot, after you exited the chroot and umounted all the partition with 'umount -a' ")
         time.sleep(2)
     print("Thank you for using this script!")
-    
 if __name__ == '__main__':
-    arch_install_iso()
+    arch_install_iso
